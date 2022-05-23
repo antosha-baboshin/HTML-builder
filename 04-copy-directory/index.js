@@ -18,21 +18,20 @@ function copyDir() {
         });
       });
     }
-  });
-
-  fs.readdir(filesPath, {withFileTypes: true}, (err, files) => {
-    if (err) {
-      console.log(err);
-    } else {
-      files.forEach(file => {
-        if (file.isFile()) {
-          fs.copyFile(path.join(filesPath, file.name), path.join(filesCopyPath, file.name), err => {
-            if(err) throw err;
-          });
-        } 
-      }); 
-      console.log('Files copied successfully');
-    }
+    fs.readdir(filesPath, {withFileTypes: true}, (err, files) => {
+      if (err) {
+        console.log(err);
+      } else {
+        files.forEach(file => {
+          if (file.isFile()) {
+            fs.copyFile(path.join(filesPath, file.name), path.join(filesCopyPath, file.name), err => {
+              if(err) throw err;
+            });
+          } 
+        }); 
+        console.log('Files copied successfully');
+      }
+    });
   });
 }
 

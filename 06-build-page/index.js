@@ -10,6 +10,7 @@ fs.mkdir(folderPath, { recursive: true }, (err) => {
 const inputHTML = fs.createReadStream(path.join(__dirname, 'template.html'));
 const outputHTML = fs.createWriteStream(path.join(folderPath, 'index.html'));
 const elementsFolder = path.join(__dirname, 'components');
+
 let pattern = '';
 
 inputHTML.on('data', (chunk) => pattern += chunk );
@@ -28,10 +29,10 @@ function getComponents(content) {
     let elementContent = '';
     elementReadStream.on('data', (chunk) => elementContent += chunk);
     elementReadStream.on('end', () => {
-      if (content.slice(start, end + 2) === '{{articles}}') {
-        elementContent = elementContent.split('\r\n').join('\r\n      ');
-      } else {
+      if (content.slice(start, end + 2) === '{{header}}' || content.slice(start, end + 2) === '{{footer}}') {
         elementContent = elementContent.split('\r\n').join('\r\n    ');
+      } else {
+        elementContent = elementContent.split('\r\n').join('\r\n      ');
       }
       content = content.replace(content.slice(start, end + 2), elementContent);
       getComponents(content);
@@ -118,6 +119,5 @@ function copyDir() {
         }); 
       }
     });
-    console.log('Files copied successfully');
   }
 }

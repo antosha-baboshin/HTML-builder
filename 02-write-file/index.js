@@ -14,4 +14,4 @@ stdin.on('data', chunk => {
 });
 
 process.on('SIGINT', () => process.exit() );
-process.on('exit', () => stdout.write('Good luck!') );
+process.on('exit', () => stdout.write('\nGood luck!') );
