@@ -9,7 +9,7 @@ fs.readdir(folder, {withFileTypes: true}, (err, files) => {
     console.log('\nFiles:');
     files.forEach(file => {
       if (file.isFile()) {
-        let fileName = file.name.split('.')[0];
+        let fileName = file.name.split(path.extname(file.name))[0];
         let fileExtention = (path.extname(file.name)).slice(1);
 
         fs.stat(path.join(folder, file.name), (error, stats) => {
